@@ -27,9 +27,16 @@ def sort_unique(values: List[T]) -> Iterable[T]:
     return chain.from_iterable(sort_unique(val) for val in result if val)
 
 
-def sort_list(values: Iterable[T]) -> Iterable[T]:
+def sort_iterable(values: Iterable[T]) -> Iterable[T]:
     """Sort iterable of values"""
     cnt = Counter()
     for val in values:
         cnt[val] += 1
-    return list(chain.from_iterable((val for _ in range(cnt[val])) for val in sort_unique(cnt.keys())))
+    if not cnt.keys():
+        return iter([])
+    return chain.from_iterable((val for _ in range(cnt[val])) for val in sort_unique(cnt.keys()))
+
+
+def sort_list(values: Iterable[T]) -> List[T]:
+    """Sort iterable of values, return as list"""
+    return list(sort_iterable(values))

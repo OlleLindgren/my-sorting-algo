@@ -13,9 +13,19 @@ def random_integers(n=100):
 
 if __name__ == '__main__':
 
+    assert sort_list([]) == sorted([])
+    print('Empty list OK')
+
+    assert sort_list(iter([])) == sorted(iter([]))
+    print('Empty generator OK')
+
     random_numbers = uniform_random_numbers(1)
     assert sort_list(random_numbers) == sorted(random_numbers)
-    print('1 Uniform random numbers OK')
+    print('Single number OK')
+
+    random_numbers = [1 for _ in range(100)]
+    assert sort_list(random_numbers) == sorted(random_numbers)
+    print('100 ones OK')
 
     random_numbers = normal_random_numbers(100)
     assert sort_list(random_numbers) == sorted(random_numbers)
